@@ -36,6 +36,11 @@ func getMetricValue(metric pmetric.Metric) float64 {
 			}
 		}
 		return 0
+	} else if metric.Type() == pmetric.MetricTypeHistogram {
+		dataPoints := metric.Histogram().DataPoints()
+		if dataPoints.Len() > 0 {
+			return dataPoints.At(0).Max()
+		}
 	}
 	return 0
 }
@@ -59,7 +64,27 @@ func generateMetrics(rm pmetric.ResourceMetrics, operand2 float64, rule internal
 	}
 }
 
+func addDoubleGaugeDataPointsFromHistogram(from pmetric.Metric, to pmetric.Metric, operand2 float64, operation string, logger *zap.Logger) {
+	dataPoints := from.ExponentialHistogram().DataPoints()
+	if dataPoints.Len() > 0 {
+		operand1 := dataPoints.At(0).Max()
+		newDoubleDataPoint := to.Gauge().DataPoints().AppendEmpty()
+		value := calculateValue(operand1, operand2, operation, logger, to.Name())
+		newDoubleDataPoint.SetDoubleValue(value)
+	}
+
+}
+
 func addDoubleGaugeDataPoints(from pmetric.Metric, to pmetric.Metric, operand2 float64, operation string, logger *zap.Logger) {
+	logger.Warn("HELLO I AM HERE")
+	logger.Warn(from.Type().String())
+	if from.Type() == pmetric.MetricTypeExponentialHistogram || from.Type() == pmetric.MetricTypeHistogram {
+		logger.Warn("NOW I AM THERE")
+		logger.Warn(from.Name())
+		addDoubleGaugeDataPointsFromHistogram(from, to, operand2, operation, logger)
+		return
+	}
+	logger.Warn("WHY AM I HERE THO?")
 	dataPoints := from.Gauge().DataPoints()
 	for i := 0; i < dataPoints.Len(); i++ {
 		fromDataPoint := dataPoints.At(i)
