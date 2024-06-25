@@ -4,6 +4,7 @@
 package metrics // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/transformprocessor/internal/metrics"
 
 import (
+	"fmt"
 	"go.opentelemetry.io/collector/featuregate"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl"
@@ -44,12 +45,15 @@ func DataPointFunctions() map[string]ottl.Factory[ottldatapoint.TransformContext
 
 func MetricFunctions() map[string]ottl.Factory[ottlmetric.TransformContext] {
 	functions := ottlfuncs.StandardFuncs[ottlmetric.TransformContext]()
-
+	fmt.Println("I am here!")
 	metricFunctions := ottl.CreateFactoryMap(
 		newExtractSumMetricFactory(),
 		newExtractCountMetricFactory(),
 		newCopyMetricFactory(),
+		newExtractP95FromHistogramFactory(),
 	)
+	fmt.Println("I am here!")
+	fmt.Println(metricFunctions["extract_p95_from_histogram"].)
 
 	if useConvertBetweenSumAndGaugeMetricContext.IsEnabled() {
 		for _, f := range []ottl.Factory[ottlmetric.TransformContext]{

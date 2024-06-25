@@ -1,0 +1,13 @@
+type: p95
+scope_name: otelcol/p95
+
+status:
+  class: processor
+  stability:
+    beta: [metrics]
+  distributions: [contrib]
+  codeowners:
+    active: []
+
+tests:
+  config:
