@@ -330,9 +330,16 @@ func (p *StatsDParser) Aggregate(line string, addr net.Addr) error {
 		case HistogramObserver:
 			raw := parsedMetric.sampleValue()
 			var agg *histogramStructure
+			println("\n\n")
+			println(parsedMetric.description.name)
+			println(parsedMetric.description.metricType)
+			println(parsedMetric.description.attrs.Len())
+			println(len(instrument.histograms))
 			if existing, ok := instrument.histograms[parsedMetric.description]; ok {
+				println("existing!")
 				agg = existing.agg
 			} else {
+				println("not existing!")
 				agg = new(histogramStructure)
 				agg.Init(category.histogramConfig)
 
@@ -344,6 +351,7 @@ func (p *StatsDParser) Aggregate(line string, addr net.Addr) error {
 				raw.value,
 				uint64(raw.count), // Note! Rounding float64 to uint64 here.
 			)
+			println("\n\n")
 
 		case DisableObserver:
 			// No action.
