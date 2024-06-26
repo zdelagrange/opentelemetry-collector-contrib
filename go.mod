@@ -691,6 +691,7 @@ require (
 	github.com/yuin/gopher-lua v0.0.0-20220504180219-658193537a64 // indirect
 	github.com/yusufpapurcu/wmi v1.2.4 // indirect
 	github.com/zeebo/xxh3 v1.0.2 // indirect
+	github.eng.tenable.com/zdelagrange/p95processor v0.0.0-00010101000000-000000000000 // indirect
 	go.elastic.co/apm/module/apmzap/v2 v2.6.0 // indirect
 	go.elastic.co/apm/v2 v2.6.0 // indirect
 	go.elastic.co/fastjson v1.3.0 // indirect
@@ -1243,3 +1244,5 @@ replace github.com/open-telemetry/opentelemetry-collector-contrib/pkg/sampling =
 replace github.com/open-telemetry/opentelemetry-collector-contrib/internal/exp/metrics => ./internal/exp/metrics
 
 replace github.com/open-telemetry/opentelemetry-collector-contrib/internal/pdatautil => ./internal/pdatautil
+
+replace github.eng.tenable.com/zdelagrange/p95processor => /Users/zdelagrange/src/p95processor

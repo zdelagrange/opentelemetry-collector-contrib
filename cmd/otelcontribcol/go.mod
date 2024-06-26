@@ -203,6 +203,7 @@ require (
 	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/zookeeperreceiver v0.103.0
 	github.com/prometheus/prometheus v0.51.2-0.20240405174432-b4a973753c6e
 	github.com/stretchr/testify v1.9.0
+	github.eng.tenable.com/zdelagrange/p95processor v0.0.0-00010101000000-000000000000
 	go.opentelemetry.io/collector/component v0.103.0
 	go.opentelemetry.io/collector/config/configgrpc v0.103.0
 	go.opentelemetry.io/collector/config/confighttp v0.103.0
@@ -1300,3 +1301,5 @@ replace github.com/open-telemetry/opentelemetry-collector-contrib/confmap/provid
 replace github.com/open-telemetry/opentelemetry-collector-contrib/pkg/sampling => ../../pkg/sampling
 
 replace github.com/open-telemetry/opentelemetry-collector-contrib/internal/pdatautil => ../../internal/pdatautil
+
+replace github.eng.tenable.com/zdelagrange/p95processor => /Users/zdelagrange/src/p95processor
